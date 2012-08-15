@@ -22,12 +22,20 @@ class EmbedMongoDBPlugin(app: Application) extends Plugin {
     override def enabled = !embed.subKeys.isEmpty
 
     override def onStart() {
-        mongod
+        if (app.mode != Mode.Prod) { 
+            mongod
+        } else {
+            Logger.warn("MongoDB not started in Prod mode !")
+        }
     }
 
     override def onStop() {
-        mongod.stop()
-        mongodExe.cleanup()
+        if (app.mode != Mode.Prod) { 
+            mongod.stop()
+            mongodExe.cleanup()
+        } else {
+            Logger.warn("MongoDB not stoped in Prod mode !")
+        }
     }
 
 }
