@@ -7,10 +7,13 @@ object MinimalBuild extends Build {
 
   lazy val buildVersion =  "0.0.1" + SNAPSHOT
 
+  /* LOCAL MAVEN REPO */
+  val localMavenRepo = "Local Maven Repository" at file(Path.userHome.absolutePath+"/.m2/repository").toURI.toURL.toString
+
   lazy val typesafeSnapshot = "Typesafe Snapshots Repository" at "http://repo.typesafe.com/typesafe/snapshots/"
   lazy val typesafe = "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-  lazy val mongoDBEmbed  = "de.flapdoodle.embedmongo" % "de.flapdoodle.embedmongo" % "1.18"
+  lazy val mongoDBEmbed  = "de.flapdoodle.embed" % "de.flapdoodle.embed.mongo" % "1.23-SNAPSHOT"
 
 
   val cloudbees = "https://repository-andy-petrella.forge.cloudbees.com/"
@@ -33,7 +36,7 @@ object MinimalBuild extends Build {
     Project(id = "play-plugins-embed-mongodb", base = file("."), settings = Project.defaultSettings).settings(
       version := buildVersion,
       organization := "be.nextlab",
-      resolvers ++= Seq(typesafe, typesafeSnapshot, cloudbeesRepo),
+      resolvers ++= Seq(typesafe, typesafeSnapshot, localMavenRepo, cloudbeesRepo),
       javacOptions += "-Xlint:unchecked",
       libraryDependencies ++= libDependencies,
       publishMavenStyle := true,
