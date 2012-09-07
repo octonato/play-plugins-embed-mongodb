@@ -13,7 +13,7 @@ object MinimalBuild extends Build {
   lazy val typesafeSnapshot = "Typesafe Snapshots Repository" at "http://repo.typesafe.com/typesafe/snapshots/"
   lazy val typesafe = "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-  lazy val mongoDBEmbed  = "de.flapdoodle.embed" % "de.flapdoodle.embed.mongo" % "1.23-SNAPSHOT"
+  lazy val mongoDBEmbed  = "de.flapdoodle.embed" % "de.flapdoodle.embed.mongo" % "1.23"
 
 
   val cloudbees = "https://repository-andy-petrella.forge.cloudbees.com/"
