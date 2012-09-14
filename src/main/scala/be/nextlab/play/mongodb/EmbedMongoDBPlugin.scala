@@ -3,7 +3,6 @@ package be.nextlab.play.mongodb
 import de.flapdoodle.embed.mongo.MongodProcess
 import de.flapdoodle.embed.mongo.MongodStarter
 import de.flapdoodle.embed.mongo.config.MongodConfig
-import de.flapdoodle.embed.mongo.config.MongodProcessOutputConfig
 import de.flapdoodle.embed.mongo.config.RuntimeConfig
 import de.flapdoodle.embed.process.config.io.ProcessOutput;
 import de.flapdoodle.embed.process.io.Processors;
@@ -13,8 +12,6 @@ import de.flapdoodle.embed.process.runtime.Network
 import java.io.File
 
 import play.api._
-import play.api.mvc._
-import play.api.Play.current
 
 class EmbedMongoDBPlugin(app: Application) extends Plugin {
 
@@ -44,7 +41,8 @@ class EmbedMongoDBPlugin(app: Application) extends Plugin {
 
 
     override def onStart() {
-        if (app.mode != Mode.Prod && start) { 
+        if (app.mode != Mode.Prod && start) {
+          Logger.debug("Starting MongoDB")
             mongod
         } else {
             Logger.warn("MongoDB not started in Prod mode or configured as is ("+start+")!")
@@ -52,7 +50,8 @@ class EmbedMongoDBPlugin(app: Application) extends Plugin {
     }
 
     override def onStop() {
-        if (app.mode != Mode.Prod && start) { 
+        if (app.mode != Mode.Prod && start) {
+            Logger.debug("Stoping MongoDB")
             mongod.stop()
             mongodExe.cleanup()
         } else {
