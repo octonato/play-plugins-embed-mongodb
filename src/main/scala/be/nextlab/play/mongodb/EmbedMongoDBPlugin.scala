@@ -31,7 +31,7 @@ class EmbedMongoDBPlugin(app: Application) extends Plugin {
         rc
     }
     lazy val runtime = MongodStarter.getInstance(runtimeConfig)
-    lazy val version = embed.getString("version").map{v => Enum.valueOf(classOf[Version], v)}.getOrElse(Version.V2_1_1)
+    lazy val version = embed.getString("version").map{v => Enum.valueOf(classOf[Version], v)}.getOrElse(Version.V2_2_0)
     lazy val port = embed.getInt("port").getOrElse(27017)
     lazy val mongodExe = runtime.prepare(new MongodConfig(version, port, Network.localhostIsIPv6()))
     lazy val mongod: MongodProcess = mongodExe.start()
